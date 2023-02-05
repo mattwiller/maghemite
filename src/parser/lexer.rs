@@ -12,7 +12,7 @@ pub enum Token {
     EOF,
 }
 
-struct Lexer {
+pub struct Lexer {
     input: Vec<char>,
     position: usize,
 }
@@ -20,14 +20,14 @@ struct Lexer {
 const TOKEN_SIZE_ESTIMATE: usize = 4;
 
 impl Lexer {
-    fn new(input: &str) -> Lexer {
+    pub fn new(input: &str) -> Lexer {
         Lexer {
             input: input.chars().collect(),
             position: 0,
         }
     }
 
-    fn tokenize(&mut self) -> Result<Vec<Token>, LexerError> {
+    pub fn tokenize(&mut self) -> Result<Vec<Token>, LexerError> {
         let mut tokens = Vec::with_capacity(self.input.len() / TOKEN_SIZE_ESTIMATE);
 
         while self.position < self.input.len() {
