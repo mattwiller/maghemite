@@ -1,4 +1,4 @@
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub enum Token {
     String(String),
     Number(String),
@@ -32,8 +32,8 @@ impl Lexer {
 
         while self.position < self.input.len() {
             let c = self.input[self.position];
-            let token = match c {
-                ' ' | '\r' | '\n' | '\t' => None,
+            if let Some(token) = match c {
+                ' ' | '\r' | '\n' | '\t' => None, // Skip whitespace
                 '.' => Some(Token::Dot),
                 ',' => Some(Token::Comma),
                 '(' => Some(Token::LeftParen),
@@ -71,8 +71,7 @@ impl Lexer {
                     self.position += identifier.len() - 1;
                     Some(Token::Identifier(identifier))
                 }
-            };
-            if let Some(token) = token {
+            } {
                 tokens.push(token);
             }
             self.position += 1;
