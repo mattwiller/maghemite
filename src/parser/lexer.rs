@@ -1,19 +1,23 @@
-#[derive(Debug, PartialEq, Eq, Hash, Clone)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, PartialOrd, Ord)]
 pub enum Token {
     String(String),
     Number(String),
     Identifier(String),
-    Dot,
-    Comma,
-    LeftParen,
-    RightParen,
     Plus,
     Minus,
+    Dot,
+    LeftParen,
+    RightParen,
+    Comma,
 }
 
 impl Token {
     pub fn identifier(s: &str) -> Self {
         Token::Identifier(s.to_string())
+    }
+
+    pub fn string(s: &str) -> Self {
+        Token::String(s.to_string())
     }
 }
 

@@ -9,9 +9,9 @@ fn criterion_benchmark(c: &mut Criterion) {
         })
     });
 
-    c.bench_function("Parser/Patient.name.family.replace", |b| {
+    c.bench_function("Parser/Patient.name.family.replace('er', 'iams')", |b| {
         b.iter(|| {
-            let mut lex = Lexer::new("Patient.name.family.replace");
+            let mut lex = Lexer::new("Patient.name.family.replace('er', 'iams')");
             let parser = Parser::new(lex.tokenize().unwrap());
             parser.parse()
         })
