@@ -1,11 +1,19 @@
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
-use maghemite::parser::Lexer;
+use criterion::{criterion_group, criterion_main, Criterion};
+use maghemite::parser::*;
 
 fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("Lexer/Patient.name.family.replace('er', 'iams')", |b| {
         b.iter(|| {
-            let mut lex = Lexer::new(black_box("Patient.name.family.replace('er', 'iams')"));
-            lex.tokenize().unwrap();
+            let mut lex = Lexer::new("Patient.name.family.replace('er', 'iams')");
+            lex.tokenize().unwrap()
+        })
+    });
+
+    c.bench_function("Parser/Patient.name.family.replace", |b| {
+        b.iter(|| {
+            let mut lex = Lexer::new("Patient.name.family.replace");
+            let parser = Parser::new(lex.tokenize().unwrap());
+            parser.parse()
         })
     });
 }

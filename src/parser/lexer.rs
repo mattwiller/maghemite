@@ -1,4 +1,4 @@
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum Token {
     String(String),
     Number(String),
@@ -9,7 +9,12 @@ pub enum Token {
     RightParen,
     Plus,
     Minus,
-    EOF,
+}
+
+impl Token {
+    pub fn identifier(s: &str) -> Self {
+        Token::Identifier(s.to_string())
+    }
 }
 
 pub struct Lexer {
@@ -77,7 +82,6 @@ impl Lexer {
             self.position += 1;
         }
 
-        tokens.push(Token::EOF);
         Ok(tokens)
     }
 }
@@ -117,7 +121,6 @@ mod tests {
                 Token::Comma,
                 Token::String("iams".to_string()),
                 Token::RightParen,
-                Token::EOF,
             ],
         }];
 
