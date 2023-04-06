@@ -59,9 +59,19 @@ impl Token {
                 prefix_parselet: None,
                 infix_parselet: Some(parse_union),
             },
+            Token::Boolean(_) => ParseRule {
+                precedence: INITIAL_PRECEDENCE,
+                prefix_parselet: Some(parse_boolean_literal),
+                infix_parselet: None,
+            },
             Token::String(_) => ParseRule {
                 precedence: INITIAL_PRECEDENCE,
                 prefix_parselet: Some(parse_string_literal),
+                infix_parselet: None,
+            },
+            Token::Number(_) => ParseRule {
+                precedence: INITIAL_PRECEDENCE,
+                prefix_parselet: Some(parse_number_literal),
                 infix_parselet: None,
             },
             _ => todo!(),
@@ -172,6 +182,22 @@ fn parse_union(
 fn parse_string_literal(_: &mut Parser, token: &Token) -> Result<Box<ASTNode>, ParserError> {
     if let Token::String(s) = token {
         return Ok(Box::new(ASTNode::StringLiteral(s.clone())));
+    } else {
+        return Err(ParserError::UnexpectedToken(token.clone()));
+    }
+}
+
+fn parse_number_literal(_: &mut Parser, token: &Token) -> Result<Box<ASTNode>, ParserError> {
+    if let Token::Number(s) = token {
+        return Ok(Box::new(ASTNode::NumberLiteral(s.clone())));
+    } else {
+        return Err(ParserError::UnexpectedToken(token.clone()));
+    }
+}
+
+fn parse_boolean_literal(_: &mut Parser, token: &Token) -> Result<Box<ASTNode>, ParserError> {
+    if let Token::Boolean(b) = token {
+        return Ok(Box::new(ASTNode::BooleanLiteral(*b)));
     } else {
         return Err(ParserError::UnexpectedToken(token.clone()));
     }

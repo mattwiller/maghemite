@@ -1,6 +1,8 @@
 #[derive(PartialEq, Eq, Debug)]
 pub enum ASTNode {
+    BooleanLiteral(bool),
     StringLiteral(String),
+    NumberLiteral(String),
     Identifier(String),
     MemberInvocation(Box<ASTNode>),
     InvocationExpression(Box<ASTNode>, Box<ASTNode>),
