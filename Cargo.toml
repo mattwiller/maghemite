@@ -1,9 +1,9 @@
 [package]
 name = "maghemite"
-version = "0.1.0"
+version = "0.0.0"
 edition = "2021"
 repository = "https://github.com/mattwiller/maghemite"
-license = "BSD-3-Clause"
+license = "Apache-2.0"
 description = "Experimental FHIRPath parser"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

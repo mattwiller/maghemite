@@ -9,6 +9,10 @@ use crate::{
 pub struct Visitor {}
 
 impl Visitor {
+    pub fn new() -> Self {
+        Visitor {}
+    }
+
     pub fn visit_node(&mut self, node: &ASTNode) -> Result<Collection, EvaluationError> {
         return match node {
             ASTNode::StringLiteral(str) => Ok(vec![Value::String(str.to_owned())]),

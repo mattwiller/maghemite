@@ -1,6 +1,5 @@
 use evaluation::{EvaluationError, Visitor};
 use fhirpath::Collection;
-use itertools::*;
 use parser::{ASTNode, Lexer, Parser, ParserError};
 
 pub mod evaluation;
@@ -24,16 +23,16 @@ impl Expression {
     }
 
     pub fn evaluate(&self) -> Result<Collection, EvaluationError> {
-        let mut visitor = Visitor {};
+        let mut visitor = Visitor::new();
         Ok(visitor.visit_node(&self.ast)?)
     }
 }
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
     use crate::fhirpath::Value;
+    use itertools::*;
     use pretty_assertions::assert_eq;
     use rust_decimal::{prelude::FromPrimitive, Decimal};
 
