@@ -7,7 +7,7 @@ pub mod fhirpath;
 pub mod parser;
 
 pub struct Expression {
-    raw: String,
+    _raw: String,
     ast: ASTNode,
 }
 
@@ -17,7 +17,7 @@ impl Expression {
         let ast = Parser::new(tokens).parse()?;
 
         Ok(Expression {
-            raw: str.to_string(),
+            _raw: str.to_string(),
             ast: *ast,
         })
     }
@@ -47,25 +47,27 @@ mod tests {
             // Boolean
             TestCase {
                 expr: "true",
-                expected: vec![Value::Boolean(true)],
+                expected: Collection::from(Value::Boolean(true)),
             },
             TestCase {
                 expr: "false",
-                expected: vec![Value::Boolean(false)],
+                expected: Collection::from(Value::Boolean(false)),
             },
             // String
             TestCase {
                 expr: "'hello, world'",
-                expected: vec![Value::String("hello, world".to_string())],
+                expected: Collection::from(Value::String("hello, world".to_string())),
             },
             // Number
             TestCase {
                 expr: "14060",
-                expected: vec![Value::Integer(14060)],
+                expected: Collection::from(Value::Integer(14060)),
             },
             TestCase {
                 expr: "0.00729735257",
-                expected: vec![Value::Decimal(Decimal::from_f64(0.00729735257).unwrap())],
+                expected: Collection::from(Value::Decimal(
+                    Decimal::from_f64(0.00729735257).unwrap(),
+                )),
             },
         ];
 
@@ -73,7 +75,7 @@ mod tests {
             if let Ok(expr) = Expression::new(case.expr) {
                 if let Ok(result) = expr.evaluate() {
                     assert_eq!(result.len(), case.expected.len());
-                    for (actual, expected) in result.iter().zip_eq(&case.expected) {
+                    for (actual, expected) in result.iter().zip_eq(case.expected.iter()) {
                         assert_eq!(actual, expected);
                     }
                 } else {
@@ -83,5 +85,19 @@ mod tests {
                 panic!("error parsing expression {}", case.expr)
             }
         }
+    }
+
+    #[test]
+    fn test_function_invocation() -> Result<(), EvaluationError> {
+        let result = Expression::new("'foobarian'.replace('foo', 'bar')")
+            .unwrap()
+            .evaluate()?;
+
+        assert_eq!(
+            result,
+            Collection::from(Value::String("barbarian".to_string()))
+        );
+
+        Ok(())
     }
 }

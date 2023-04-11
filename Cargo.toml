@@ -12,6 +12,7 @@ description = "Experimental FHIRPath parser"
 chrono = "0.4.24"
 iota = "0.2.3"
 itertools = "0.10.5"
+lazy_static = "1.4.0"
 log = "0.4.17"
 rust_decimal = "1.29.1"
 

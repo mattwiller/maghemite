@@ -5,7 +5,7 @@ use rust_decimal::prelude::*;
 
 pub type Type = &'static str;
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub enum Value {
     Boolean(bool),
     String(String),
@@ -21,8 +21,6 @@ pub enum Value {
     Any(Box<Value>),
 }
 
-pub type Collection = Vec<Value>;
-
 pub const BOOLEAN: Type = "System.Boolean";
 pub const STRING: Type = "System.String";
 pub const INTEGER: Type = "System.Integer";
@@ -33,7 +31,7 @@ pub const DATETIME: Type = "System.DateTime";
 pub const QUANTITY: Type = "System.Quantity";
 pub const ANY: Type = "System.Any";
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub struct Quantity {
     value: Decimal,
     unit: String,

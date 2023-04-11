@@ -1,5 +1,6 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 use maghemite::parser::*;
+use maghemite::Expression;
 
 fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("Lexer/Patient.name.family.replace('er', 'iams')", |b| {
@@ -14,6 +15,15 @@ fn criterion_benchmark(c: &mut Criterion) {
             let mut lex = Lexer::new("Patient.name.family.replace('er', 'iams')");
             let parser = Parser::new(lex.tokenize().unwrap());
             parser.parse()
+        })
+    });
+
+    c.bench_function("Evaluation/'foobarian'.replace('foo', 'bar')", |b| {
+        b.iter(|| {
+            Expression::new("'foobarian'.replace('foo', 'bar')")
+                .unwrap()
+                .evaluate()
+                .unwrap();
         })
     });
 }

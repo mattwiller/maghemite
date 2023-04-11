@@ -1,6 +1,6 @@
 use super::*;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum DataNode {
     Object(Type, Vec<Box<DataNode>>),
     Value(Value),
