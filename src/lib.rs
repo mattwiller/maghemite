@@ -34,7 +34,6 @@ mod tests {
     use crate::fhirpath::Value;
     use itertools::*;
     use pretty_assertions::assert_eq;
-    use rust_decimal::{prelude::FromPrimitive, Decimal};
 
     #[test]
     fn test_literal_evaluation() {
@@ -47,27 +46,25 @@ mod tests {
             // Boolean
             TestCase {
                 expr: "true",
-                expected: Collection::from(Value::Boolean(true)),
+                expected: Collection::from(Value::boolean(true)),
             },
             TestCase {
                 expr: "false",
-                expected: Collection::from(Value::Boolean(false)),
+                expected: Collection::from(Value::boolean(false)),
             },
             // String
             TestCase {
                 expr: "'hello, world'",
-                expected: Collection::from(Value::String("hello, world".to_string())),
+                expected: Collection::from(Value::string("hello, world")),
             },
             // Number
             TestCase {
                 expr: "14060",
-                expected: Collection::from(Value::Integer(14060)),
+                expected: Collection::from(Value::integer(14060)),
             },
             TestCase {
                 expr: "0.00729735257",
-                expected: Collection::from(Value::Decimal(
-                    Decimal::from_f64(0.00729735257).unwrap(),
-                )),
+                expected: Collection::from(Value::decimal(729735257, 11)),
             },
         ];
 
@@ -93,10 +90,7 @@ mod tests {
             .unwrap()
             .evaluate()?;
 
-        assert_eq!(
-            result,
-            Collection::from(Value::String("barbarian".to_string()))
-        );
+        assert_eq!(result, Collection::from(Value::string("barbarian")));
 
         Ok(())
     }

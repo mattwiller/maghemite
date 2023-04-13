@@ -21,6 +21,26 @@ pub enum Value {
     Any(Box<Value>),
 }
 
+impl Value {
+    pub fn boolean(value: bool) -> Self {
+        Value::Boolean(value)
+    }
+
+    pub fn string(value: impl ToString) -> Self {
+        Value::String(value.to_string())
+    }
+
+    pub fn integer(value: i32) -> Self {
+        Value::Integer(value)
+    }
+
+    /// Returns the decimal n * 10^-exp
+    pub fn decimal(n: i64, exp: u32) -> Self {
+        let d = Decimal::new(n, exp);
+        Value::Decimal(d)
+    }
+}
+
 pub const BOOLEAN: Type = "System.Boolean";
 pub const STRING: Type = "System.String";
 pub const INTEGER: Type = "System.Integer";
@@ -76,7 +96,6 @@ impl Value {
                 }
                 return Some(false);
             }
-
             _ => todo!(),
         }
     }
