@@ -3,6 +3,7 @@ use fhirpath::Collection;
 use parser::{ASTNode, Lexer, Parser, ParserError};
 
 pub mod evaluation;
+pub mod fhir;
 pub mod fhirpath;
 pub mod parser;
 

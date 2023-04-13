@@ -34,7 +34,7 @@ impl Value {
         Value::Integer(value)
     }
 
-    /// Returns the decimal n * 10^-exp
+    /// Returns the Decimal n * 10^-exp
     pub fn decimal(n: i64, exp: u32) -> Self {
         let d = Decimal::new(n, exp);
         Value::Decimal(d)

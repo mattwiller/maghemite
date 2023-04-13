@@ -12,7 +12,7 @@ pub enum ASTNode {
 }
 
 impl ASTNode {
-    pub fn identifier(s: &str) -> Box<Self> {
+    pub fn identifier(s: impl ToString) -> Box<Self> {
         Box::new(ASTNode::Identifier(s.to_string()))
     }
 
@@ -28,7 +28,7 @@ impl ASTNode {
         Box::new(ASTNode::Union(left, right))
     }
 
-    pub fn string(s: &str) -> Box<Self> {
+    pub fn string(s: impl ToString) -> Box<Self> {
         Box::new(ASTNode::StringLiteral(s.to_string()))
     }
 
