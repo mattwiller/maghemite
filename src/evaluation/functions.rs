@@ -12,7 +12,7 @@ lazy_static! {
 }
 
 fn replace(input: &Collection, params: &Collection) -> Result<Collection, EvaluationError> {
-    let Value::String(str) = input.singleton(STRING)? else {panic!()};
+    let Value::String(str) = input.singleton(STRING)? else {return Err(EvaluationError::InvalidFunctionArguments(params.clone()))};
     if let (Some(Value::String(pattern)), Some(Value::String(substitution))) =
         (params.get(0), params.get(1))
     {
