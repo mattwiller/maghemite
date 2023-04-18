@@ -18,9 +18,9 @@ fn criterion_benchmark(c: &mut Criterion) {
         })
     });
 
-    c.bench_function("Evaluation/'foobarian'.replace('foo', 'bar')", |b| {
+    c.bench_function("Evaluation/'barbarian'.replace('bar', 'foo')", |b| {
         b.iter(|| {
-            Expression::new("'foobarian'.replace('foo', 'bar')")
+            Expression::new("'barbarian'.replace('bar', 'foo')")
                 .unwrap()
                 .evaluate()
                 .unwrap();

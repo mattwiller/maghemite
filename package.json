@@ -1,0 +1,30 @@
+{
+  "name": "maghemite",
+  "version": "0.0.5",
+  "description": "Experimental library for FHIR, powered by Rust",
+  "files": [
+    "benches/**",
+    "src/**",
+    "build.rs",
+    "Cargo.*",
+    "LICENSE.txt",
+    "maghemite-512.png",
+    "README.md"
+  ],
+  "main": "dist/index.node",
+  "scripts": {
+    "build": "npx cargo-cp-artifact -nc dist/index.node -- cargo build --release --message-format=json-render-diagnostics",
+    "preinstall": "npm run build",
+    "test": "cargo test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattwiller/maghemite.git"
+  },
+  "author": "Matt Willer <matt.r.willer@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/mattwiller/maghemite/issues"
+  },
+  "homepage": "https://github.com/mattwiller/maghemite#readme"
+}

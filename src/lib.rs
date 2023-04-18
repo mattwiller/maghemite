@@ -7,6 +7,9 @@ pub mod fhir;
 pub mod fhirpath;
 pub mod parser;
 
+mod node_addon;
+pub use node_addon::*;
+
 pub struct Expression {
     _raw: String,
     ast: ASTNode,
